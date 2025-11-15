@@ -1,0 +1,11 @@
+{
+    "port": "5668",
+    "fnos_base_url": "http://fnos.lan:5666",
+    "immich_url": "http://immich.lan",
+    "immich_api_key": "<替换>",
+    "automate_url": "http://fnos.lan:5000",
+    "path_replace": {
+        "/usr/src/app/external": "/vol1/1000/Photos"
+    },
+    "sqlite_db_path": "/root/photo.db"
+}

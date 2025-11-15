@@ -1,0 +1,26 @@
+version: '3.8'
+
+services:
+  fnos_selenium:
+    build: ./fnos_selenium
+    container_name: fnos_selenium
+    environment:
+      - FNOS_LOGIN_URL=http://fnos.lan:5666/p
+      - FNOS_USERNAME=username # 替换
+      - FNOS_PASSWORD=password # 替换
+    restart: always
+
+  fnos_photo_proxy:
+    build: ./fnos_photo_proxy
+    ports:
+      - "5586:5586"
+    volumes:
+      - ./fnos_photo_proxy/config.json:/root/config.json
+      - ./photo.db:/root/photo.db # 部署替换为/usr/local/apps/@appdata/trim.photos/db/photo.db
+      - ./photo.db-shm:/root/photo.db-shm # 部署替换为/usr/local/apps/@appdata/trim.photos/db/photo.db-shm
+      - ./photo.db-wal:/root/photo.db-wal # 部署替换为/usr/local/apps/@appdata/trim.photos/db/photo.db-wal
+    environment:
+      - GIN_MODE=release
+    restart: always
+    depends_on:
+      - fnos-selenium
